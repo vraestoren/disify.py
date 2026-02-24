@@ -1,43 +1,36 @@
-from requests import get
+from requests import Session
 
 class Disify:
 	def __init__(self) -> None:
 		self.api = "https://www.disify.com"
-		self.headers = {
+		self.session = Session()
+		self.session.headers = {
 			"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
 		}
 	
-	def check_email_validation(self, email: str) -> dict:
-		return get(
-			f"{self.api}/api/email/{email}",
-			headers=self.headers).json()
+	def check_email(self, email: str) -> dict:
+		return self.session.get(
+			f"{self.api}/api/email/{email}").json()
 	
-	def check_domain_validation(self, domain: str) -> dict:
-		return get(
-			f"{self.api}/api/domain/{domain}",
-			headers=self.headers).json()
+	def check_domain(self, domain: str) -> dict:
+		return self.session.get(
+			f"{self.api}/api/domain/{domain}").json()
 	
 	def view_validation_results(self, session: str) -> dict:
-		return get(
-			f"{self.api}/api/view/{session}",
-			headers=self.headers).json()
+		return self.session.get(
+			f"{self.api}/api/view/{session}").json()
 	
-	def check_mass_emails_validation(
-			self,
-			emails: str) -> dict:
-		return get(
-			f"{self.api}/api/email/{emails}/mass",
-			headers=self.headers).json()
+	def check_emails(
+			self, emails: str) -> dict:
+		return self.session.get(
+			f"{self.api}/api/email/{emails}/mass").json()
 	
-	def check_mass_domains_validation(
+	def check_domains(
 			self,
 			domains: str) -> dict:
-		return get(
-			f"{self.api}/api/domain/{domains}/mass",
-			headers=self.headers).json()
+		return self.session.get(
+			f"{self.api}/api/domain/{domains}/mass").json()
 	
-	def get_black_list_domains(self) -> str:
-		return get(
-			f"{self.api}/blacklist/domains",
-			headers=self.headers).text
-	
+	def get_blocked_domains(self) -> str:
+		return self.session.get(
+			f"{self.api}/blacklist/domains").text
