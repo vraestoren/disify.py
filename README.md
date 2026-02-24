@@ -3,8 +3,9 @@ Web-API for [disify.com](https://disify.com) website to validate and verify sing
 
 ## Example
 ```python
-import disify
-disify = disify.Disify()
-email_validation = disify.check_email_validation(email="")
+from disify import Disify
+
+disify = Disify()
+email_validation = disify.check_email(email="example@gmail.com")
 print(email_validation)
 ```
